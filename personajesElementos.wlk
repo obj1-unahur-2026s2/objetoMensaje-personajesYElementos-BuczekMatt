@@ -1,7 +1,16 @@
 
 //---------------------------Personajes---------------------------
 object luisa {
-  
+  var personajeActivo = mario
+
+  method aparece(unElemento) {
+    personajeActivo.encontrar(unElemento)
+  }
+
+  method cambiarJugador(unPersonaje) {
+    personajeActivo = unPersonaje
+  }
+
 }
 
 object floki {
@@ -24,8 +33,16 @@ object floki {
 }
 
 object mario {
+  var valorRecolectado = 0
+  var ultimoElemento = aurora
+
   method encontrar(elemento) {
-    
+    ultimoElemento = elemento
+    valorRecolectado += elemento.recibirTrabajo()
+  }
+
+  method estaFeliz() {
+    return valorRecolectado>=50 || ultimoElemento.altura()>=10
   }
 }
 
@@ -77,7 +94,11 @@ object castillo {
     nivelDeDefesa -= potenciaDeArma
   }
   
-
+  method recibirTrabajo() {
+    const valor = nivelDeDefesa *0.2
+    nivelDeDefesa = (nivelDeDefesa + 20).min(200)
+    return valor
+  }
 }
 
 object aurora  {
@@ -97,6 +118,9 @@ object aurora  {
     }
     
   }
+  method recibirTrabajo() {
+    return 15
+  }
 
 }
 
@@ -109,4 +133,10 @@ object tipa   {
 
   method recibirAtaque(potenciaDeArma) { }
 
+  method recibirTrabajo() {
+    const valor = altura * 2
+    altura += 1
+    return valor
+  }
+  
 }
